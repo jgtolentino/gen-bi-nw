@@ -1,0 +1,337 @@
+{
+  "workbook": {
+    "name": "Northwind Sales Dashboard",
+    "version": "2023.3.0",
+    "colorPalette": {
+      "name": "Adventure Works",
+      "colors": ["#06a77d", "#1c3d5a", "#796d5f", "#2185c7", "#e6e1c4"]
+    },
+    "dimensions": {
+      "width": 1400,
+      "height": 800
+    },
+    "datasources": [
+      {
+        "name": "Parameters",
+        "type": "inline",
+        "parameters": [
+          {
+            "name": "Last Month",
+            "type": "boolean",
+            "default": true,
+            "aliases": {
+              "true": "Exclude",
+              "false": "Include"
+            }
+          },
+          {
+            "name": "Metric Parameter",
+            "type": "string",
+            "default": "Sales",
+            "options": ["Sales", "Profit", "Orders"]
+          }
+        ]
+      },
+      {
+        "name": "combined_data_model",
+        "type": "federated",
+        "tables": [
+          {
+            "name": "Orders Table",
+            "columns": [
+              "OrderID", "CustomerID", "ClientName", "EmployeeID", "ProductID",
+              "UnitPrice", "UnitCost", "Quantity", "Discount", "DiscountValue",
+              "Revenue", "CostOfGoods", "DiscountedRevenue", "Freight", "FreightByProduct",
+              "OrderDate", "RequiredDate", "ShippedDate", "ShipName", "ShipAddress",
+              "ShipCity", "ShipRegion", "ShipPostalCode", "ShipCountry", "EmployeeName",
+              "Title", "HireDate", "Region", "ProductName", "Category", "Country", "City"
+            ]
+          }
+        ]
+      }
+    ],
+    "dashboards": [
+      {
+        "name": "Overview",
+        "id": "overview",
+        "layout": {
+          "type": "grid",
+          "backgroundColor": "#f7f7f9"
+        },
+        "components": [
+          {
+            "type": "navigation",
+            "position": "sidebar",
+            "items": [
+              {
+                "name": "Overview",
+                "icon": "chart",
+                "active": true,
+                "backgroundColor": "#1c3d5a"
+              },
+              {
+                "name": "Order Details",
+                "icon": "orders",
+                "backgroundColor": "#59758a"
+              },
+              {
+                "name": "SQL Data Prep",
+                "icon": "database",
+                "backgroundColor": "#2185c7"
+              }
+            ]
+          },
+          {
+            "type": "header",
+            "content": {
+              "title": "Current Month",
+              "dynamic": true
+            }
+          },
+          {
+            "type": "metric-cards",
+            "layout": "horizontal",
+            "cards": [
+              {
+                "id": "revenue",
+                "title": "Revenue",
+                "type": "BAN",
+                "sparkline": true,
+                "comparison": "previous-month"
+              },
+              {
+                "id": "profit",
+                "title": "Profit",
+                "type": "BAN",
+                "sparkline": true,
+                "comparison": "previous-month"
+              },
+              {
+                "id": "orders",
+                "title": "Orders",
+                "type": "BAN",
+                "sparkline": true,
+                "comparison": "previous-month"
+              },
+              {
+                "id": "discounted-revenue",
+                "title": "Discounted Revenue",
+                "type": "BAN",
+                "sparkline": true,
+                "comparison": "previous-month"
+              },
+              {
+                "id": "avg-order-value",
+                "title": "Avg Order Value",
+                "type": "BAN",
+                "sparkline": true,
+                "comparison": "previous-month"
+              }
+            ]
+          },
+          {
+            "type": "chart-grid",
+            "layout": "2x2",
+            "charts": [
+              {
+                "id": "sales-split",
+                "title": "Sales Split",
+                "type": "pie",
+                "worksheet": "Sales Split"
+              },
+              {
+                "id": "profit-by-category",
+                "title": "Profit by Category",
+                "type": "bar",
+                "worksheet": "Profit by Category"
+              },
+              {
+                "id": "top-5-products",
+                "title": "Top 5 Products",
+                "type": "bar-horizontal",
+                "worksheet": "Top 5 Products Chart"
+              },
+              {
+                "id": "highest-profit-margin",
+                "title": "Highest Profit Margin Products",
+                "type": "bar-horizontal",
+                "worksheet": "Highest Profit Margin Products"
+              }
+            ]
+          },
+          {
+            "type": "chart-grid",
+            "layout": "1x3",
+            "charts": [
+              {
+                "id": "top-clients",
+                "title": "Top Clients",
+                "type": "bar-horizontal",
+                "worksheet": "Top Clients Chart"
+              },
+              {
+                "id": "top-employees",
+                "title": "Top Employees",
+                "type": "bar-horizontal",
+                "worksheet": "Top Employees Chart"
+              },
+              {
+                "id": "orders-by-location",
+                "title": "Orders by Location",
+                "type": "map",
+                "worksheet": "Orders by location"
+              }
+            ]
+          },
+          {
+            "type": "parameter-controls",
+            "controls": [
+              {
+                "parameter": "Last Month",
+                "type": "toggle",
+                "label": "Include Last Month of Dataset"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Order Details",
+        "id": "order-details",
+        "layout": {
+          "type": "grid",
+          "backgroundColor": "#f7f7f9"
+        },
+        "components": [
+          {
+            "type": "navigation",
+            "position": "sidebar",
+            "items": [
+              {
+                "name": "Overview",
+                "icon": "chart",
+                "backgroundColor": "#1c3d5a"
+              },
+              {
+                "name": "Order Details",
+                "icon": "orders",
+                "active": true,
+                "backgroundColor": "#59758a"
+              },
+              {
+                "name": "SQL Data Prep",
+                "icon": "database",
+                "backgroundColor": "#2185c7"
+              }
+            ]
+          },
+          {
+            "type": "data-table",
+            "title": "Orders",
+            "worksheet": "Orders",
+            "features": [
+              "sorting",
+              "filtering",
+              "pagination",
+              "export"
+            ],
+            "columns": [
+              "OrderID",
+              "CustomerID",
+              "ClientName",
+              "ProductName",
+              "Category",
+              "Quantity",
+              "Revenue",
+              "Profit",
+              "OrderDate",
+              "ShipCountry"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "SQL Data Prep",
+        "id": "sql-data-prep",
+        "layout": {
+          "type": "single",
+          "backgroundColor": "#f7f7f9"
+        },
+        "components": [
+          {
+            "type": "navigation",
+            "position": "sidebar",
+            "items": [
+              {
+                "name": "Overview",
+                "icon": "chart",
+                "backgroundColor": "#1c3d5a"
+              },
+              {
+                "name": "Order Details",
+                "icon": "orders",
+                "backgroundColor": "#59758a"
+              },
+              {
+                "name": "SQL Data Prep",
+                "icon": "database",
+                "active": true,
+                "backgroundColor": "#2185c7"
+              }
+            ]
+          },
+          {
+            "type": "content",
+            "items": [
+              {
+                "type": "image",
+                "src": "data_model.PNG",
+                "alt": "Data Model Diagram"
+              },
+              {
+                "type": "documentation",
+                "content": "SQL data preparation information and schema details"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "worksheets": [
+      "\"Metric\"",
+      "\"Metric\" Indicators",
+      "Avg Order Value Sparkline",
+      "BAN CM Avg Order Value",
+      "BAN CM Discounted Revenue",
+      "BAN CM Orders",
+      "BAN CM Profit",
+      "BAN CM Revenue",
+      "Current Month Text",
+      "Discounts Sparkline",
+      "Highest Profit Margin Products",
+      "Info Icon",
+      "Month",
+      "Month Indicator",
+      "More than Previous Year",
+      "Orders",
+      "Orders Image",
+      "Orders Sparkline",
+      "Orders by location",
+      "Overview Image",
+      "Profit Margin Sparkline",
+      "Profit by Category",
+      "Revenue Sparkline",
+      "SQL Image",
+      "Sales Split",
+      "This Year Sales",
+      "Title This Year Sales",
+      "Top 5 Products Chart",
+      "Top 5 Products Indication",
+      "Top Clients Chart",
+      "Top Clients Indicator",
+      "Top Employees Chart",
+      "Top Employees Indicator",
+      "YTD Indicator Axis Label"
+    ]
+  }
+}
