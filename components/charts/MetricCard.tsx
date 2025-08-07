@@ -1,5 +1,7 @@
+'use client'
+
 import React from 'react';
-import { TrendingUpIcon, TrendingDownIcon } from '@heroicons/react/24/solid';
+import { ArrowTrendingUpIcon, ArrowTrendingDownIcon } from '@heroicons/react/24/solid';
 
 interface MetricCardProps {
   title: string;
@@ -29,9 +31,9 @@ export const MetricCard: React.FC<MetricCardProps> = ({
       {/* Change Indicator */}
       <div className={`flex items-center mb-3 ${isPositive ? 'text-green-600' : 'text-red-600'}`}>
         {isPositive ? (
-          <TrendingUpIcon className="w-4 h-4 mr-1" />
+          <ArrowTrendingUpIcon className="w-4 h-4 mr-1" />
         ) : (
-          <TrendingDownIcon className="w-4 h-4 mr-1" />
+          <ArrowTrendingDownIcon className="w-4 h-4 mr-1" />
         )}
         <span className="text-sm font-medium">{Math.abs(change)}%</span>
         <span className="text-xs text-gray-500 ml-1">vs last month</span>
