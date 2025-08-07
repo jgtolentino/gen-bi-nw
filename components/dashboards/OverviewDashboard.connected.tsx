@@ -93,37 +93,37 @@ export const OverviewDashboard: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
         <MetricCard
           title="Revenue"
-          value={`$${kpis.total_revenue.toLocaleString('en-US', { maximumFractionDigits: 0 })}`}
+          value={`$${(kpis.total_revenue || 0).toLocaleString('en-US', { maximumFractionDigits: 0 })}`}
           change={revenueChange}
           sparklineData={getSparklineData()}
           color="#06a77d"
         />
         <MetricCard
           title="Profit"
-          value={`$${kpis.total_profit.toLocaleString('en-US', { maximumFractionDigits: 0 })}`}
+          value={`$${(kpis.total_profit || 0).toLocaleString('en-US', { maximumFractionDigits: 0 })}`}
           change={profitChange}
           sparklineData={monthlyTrend && monthlyTrend.length > 0 ? monthlyTrend.slice(-10).map(m => m.monthly_profit || 0) : Array(10).fill(0)}
           color="#1c3d5a"
         />
         <MetricCard
           title="Orders"
-          value={kpis.total_orders.toLocaleString()}
+          value={(kpis.total_orders || 0).toLocaleString()}
           change={ordersChange}
           sparklineData={monthlyTrend && monthlyTrend.length > 0 ? monthlyTrend.slice(-10).map(m => m.order_count || 0) : Array(10).fill(0)}
           color="#796d5f"
         />
         <MetricCard
           title="Avg Order Value"
-          value={`$${kpis.average_order_value.toFixed(0)}`}
+          value={`$${(kpis.average_order_value || 0).toFixed(0)}`}
           change={14.7}
           sparklineData={getSparklineData().map(v => v / 100)}
           color="#2185c7"
         />
         <MetricCard
           title="Profit Margin"
-          value={`${kpis.profit_margin.toFixed(1)}%`}
+          value={`${(kpis.profit_margin || 0).toFixed(1)}%`}
           change={2.3}
-          sparklineData={Array(10).fill(kpis.profit_margin).map((v, i) => v + (Math.random() - 0.5) * 5)}
+          sparklineData={Array(10).fill(kpis.profit_margin || 0).map((v, i) => v + (Math.random() - 0.5) * 5)}
           color="#e6e1c4"
         />
       </div>
@@ -175,21 +175,21 @@ export const OverviewDashboard: React.FC = () => {
           <div>
             <p className="text-sm text-gray-600">Total Revenue</p>
             <p className="text-2xl font-bold text-[#06a77d]">
-              ${kpis.total_revenue.toLocaleString('en-US', { maximumFractionDigits: 0 })}
+              ${(kpis.total_revenue || 0).toLocaleString('en-US', { maximumFractionDigits: 0 })}
             </p>
           </div>
           <div className="text-center">
             <p className="text-sm text-gray-600">Total Orders</p>
-            <p className="text-2xl font-bold text-[#2185c7]">{kpis.total_orders.toLocaleString()}</p>
+            <p className="text-2xl font-bold text-[#2185c7]">{(kpis.total_orders || 0).toLocaleString()}</p>
           </div>
           <div className="text-right">
             <p className="text-sm text-gray-600">Profit Margin</p>
             <div className="flex items-center justify-end mt-1">
-              <p className="text-2xl font-bold text-[#1c3d5a] mr-3">{kpis.profit_margin.toFixed(1)}%</p>
+              <p className="text-2xl font-bold text-[#1c3d5a] mr-3">{(kpis.profit_margin || 0).toFixed(1)}%</p>
               <div className="w-24 h-2 bg-gray-200 rounded-full overflow-hidden">
                 <div 
                   className="h-full bg-[#06a77d] rounded-full" 
-                  style={{ width: `${Math.min(kpis.profit_margin * 2, 100)}%` }}
+                  style={{ width: `${Math.min((kpis.profit_margin || 0) * 2, 100)}%` }}
                 />
               </div>
             </div>

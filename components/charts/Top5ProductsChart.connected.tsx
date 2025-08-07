@@ -48,7 +48,7 @@ export const Top5ProductsChart: React.FC = () => {
                 </div>
               </div>
               <span className="text-sm font-bold text-gray-900 ml-4">
-                ${(product.total_revenue / 1000).toFixed(1)}K
+                ${((product.total_revenue || 0) / 1000).toFixed(1)}K
               </span>
             </div>
             

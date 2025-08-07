@@ -85,7 +85,7 @@ export const TopEmployeesChart: React.FC = () => {
               </div>
               <div className="flex justify-between text-xs text-gray-500 mt-1">
                 <span>{employee.order_count} orders</span>
-                <span>${(employee.average_order_value).toFixed(0)} avg/order</span>
+                <span>${(employee.average_order_value || 0).toFixed(0)} avg/order</span>
               </div>
             </div>
           </div>

@@ -91,7 +91,7 @@ export const OrdersByLocationMap: React.FC = () => {
                 <div className="bg-gray-800 text-white text-xs rounded px-3 py-2 whitespace-nowrap">
                   <p className="font-bold">{location.country}</p>
                   <p>{location.order_count} orders</p>
-                  <p>${(location.total_revenue / 1000).toFixed(1)}K revenue</p>
+                  <p>${((location.total_revenue || 0) / 1000).toFixed(1)}K revenue</p>
                   <p>{location.customer_count} customers</p>
                   <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-800"></div>
                 </div>

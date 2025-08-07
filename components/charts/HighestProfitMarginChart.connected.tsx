@@ -46,9 +46,9 @@ export const HighestProfitMarginChart: React.FC = () => {
                 </span>
               </div>
               <div className="text-right">
-                <span className="text-sm font-bold text-gray-900">{product.profit_margin.toFixed(1)}%</span>
+                <span className="text-sm font-bold text-gray-900">{(product.profit_margin || 0).toFixed(1)}%</span>
                 <span className="text-xs text-gray-500 ml-2">
-                  (${(product.revenue / 1000).toFixed(1)}K)
+                  (${((product.revenue || 0) / 1000).toFixed(1)}K)
                 </span>
               </div>
             </div>
@@ -58,14 +58,14 @@ export const HighestProfitMarginChart: React.FC = () => {
               <div
                 className="h-full rounded-full flex items-center justify-end pr-2"
                 style={{
-                  width: `${Math.min(product.profit_margin, 100)}%`,
+                  width: `${Math.min(product.profit_margin || 0, 100)}%`,
                   backgroundColor: categoryColors[product.category_name] || '#gray',
                   opacity: 0.9 - (index * 0.1)
                 }}
               >
-                {product.profit_margin > 30 && (
+                {(product.profit_margin || 0) > 30 && (
                   <span className="text-xs text-white font-medium">
-                    {product.profit_margin.toFixed(1)}%
+                    {(product.profit_margin || 0).toFixed(1)}%
                   </span>
                 )}
               </div>

@@ -23,22 +23,22 @@ export const ProfitByCategoryChart: React.FC = () => {
             <span className="text-sm font-medium text-gray-700">{item.category_name}</span>
             <div className="flex items-center space-x-2">
               <span className="text-sm font-semibold text-gray-900">
-                ${(item.total_profit / 1000).toFixed(1)}K
+                ${((item.total_profit || 0) / 1000).toFixed(1)}K
               </span>
               <span className="text-xs text-gray-500">
-                ({item.profit_margin.toFixed(1)}%)
+                ({(item.profit_margin || 0).toFixed(1)}%)
               </span>
             </div>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-6 relative overflow-hidden">
             <div
               className="h-full bg-gradient-to-r from-[#1c3d5a] to-[#2185c7] rounded-full transition-all duration-500 ease-out"
-              style={{ width: `${(item.total_profit / maxProfit) * 100}%` }}
+              style={{ width: `${((item.total_profit || 0) / maxProfit) * 100}%` }}
             />
             {/* Margin indicator */}
             <div
               className="absolute top-0 h-full w-1 bg-[#06a77d]"
-              style={{ left: `${item.profit_margin}%` }}
+              style={{ left: `${item.profit_margin || 0}%` }}
             />
           </div>
         </div>

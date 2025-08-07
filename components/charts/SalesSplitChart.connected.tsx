@@ -16,11 +16,11 @@ export const SalesSplitChart: React.FC = () => {
   // Color palette from Adventure Works theme
   const colors = ['#06a77d', '#1c3d5a', '#796d5f', '#2185c7', '#e6e1c4', '#ff8c00', '#4b5563', '#10b981'];
   
-  const total = data.reduce((sum, item) => sum + item.total_revenue, 0);
+  const total = data.reduce((sum, item) => sum + (item.total_revenue || 0), 0);
   let currentAngle = -90; // Start from top
 
   const createPath = (item: typeof data[0], index: number) => {
-    const percentage = item.total_revenue / total;
+    const percentage = (item.total_revenue || 0) / total;
     const angle = percentage * 360;
     const startAngle = currentAngle;
     const endAngle = startAngle + angle;
@@ -86,10 +86,10 @@ export const SalesSplitChart: React.FC = () => {
             </div>
             <div className="ml-4 text-right">
               <div className="text-sm font-semibold text-gray-900">
-                ${(item.total_revenue / 1000).toFixed(0)}K
+                ${((item.total_revenue || 0) / 1000).toFixed(0)}K
               </div>
               <div className="text-xs text-gray-500">
-                {((item.total_revenue / total) * 100).toFixed(1)}%
+                {(((item.total_revenue || 0) / total) * 100).toFixed(1)}%
               </div>
             </div>
           </div>

@@ -60,13 +60,13 @@ export const TopClientsChart: React.FC = () => {
               
               {/* Hover tooltip */}
               <div className="absolute -top-8 left-0 hidden group-hover:block bg-gray-800 text-white text-xs rounded px-2 py-1 z-10">
-                {client.order_count} orders • ${client.average_order_value.toFixed(0)} avg
+                {client.order_count} orders • ${(client.average_order_value || 0).toFixed(0)} avg
               </div>
             </div>
             
             <div className="flex justify-between text-xs text-gray-500 mt-1">
               <span>{client.order_count} orders</span>
-              <span>${client.average_order_value.toFixed(0)} avg</span>
+              <span>${(client.average_order_value || 0).toFixed(0)} avg</span>
             </div>
           </div>
         );
