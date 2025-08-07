@@ -19,9 +19,9 @@ export const MetricCard: React.FC<MetricCardProps> = ({
   color
 }) => {
   const isPositive = change > 0;
-  const maxValue = Math.max(...sparklineData);
-  const minValue = Math.min(...sparklineData);
-  const range = maxValue - minValue;
+  const maxValue = sparklineData.length > 0 ? Math.max(...sparklineData) : 0;
+  const minValue = sparklineData.length > 0 ? Math.min(...sparklineData) : 0;
+  const range = maxValue - minValue || 1;
 
   return (
     <div className="bg-white rounded-lg shadow-sm p-4 hover:shadow-md transition-shadow">
