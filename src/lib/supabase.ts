@@ -91,7 +91,7 @@ export interface EmployeePerformance {
   employee_id: number
   employee_name: string
   title: string
-  total_revenue: number
+  total_sales: number
   order_count: number
   average_order_value: number
   customers_served: number
@@ -164,7 +164,7 @@ export async function fetchSalesByCategory(filters?: Record<string, string>): Pr
   let query = supabase
     .from('nw_sales_by_category')
     .select('*')
-    .order('total_revenue', { ascending: false })
+    .order('revenue', { ascending: false })
   
   // Apply filters if provided
   if (filters) {
@@ -183,10 +183,10 @@ export async function fetchSalesByCategory(filters?: Record<string, string>): Pr
   if (!data) return null
 
   // Map current structure to expected interface
-  return data.map((item: CurrentSalesByCategory) => ({
+  return data.map((item: any) => ({
     category_name: item.category_name,
-    total_revenue: item.total_revenue || 0,
-    total_profit: (item.total_revenue || 0) * 0.3, // Assume 30% profit margin
+    total_revenue: item.revenue || 0,
+    total_profit: (item.revenue || 0) * 0.3, // Assume 30% profit margin
     order_count: item.order_count || 0,
     profit_margin: 30.0 // Fixed profit margin
   }))
@@ -196,7 +196,7 @@ export async function fetchTopProducts(limit = 5, filters?: Record<string, strin
   let query = supabase
     .from('nw_top_products')
     .select('*')
-    .order('total_revenue', { ascending: false })
+    .order('revenue', { ascending: false })
     .limit(limit)
   
   // Apply filters if provided
@@ -282,7 +282,7 @@ export async function fetchOrdersByCountry() {
   const { data, error } = await supabase
     .from('nw_orders_by_country')
     .select('*')
-    .order('order_count', { ascending: false })
+    .order('revenue', { ascending: false })
   
   if (error) console.error('Error fetching orders by country:', error)
   return data as OrdersByCountry[] | null
@@ -292,7 +292,7 @@ export async function fetchEmployeePerformance() {
   const { data, error } = await supabase
     .from('nw_employee_performance')
     .select('*')
-    .order('total_revenue', { ascending: false })
+    .order('total_sales', { ascending: false })
   
   if (error) console.error('Error fetching employee performance:', error)
   return data as EmployeePerformance[] | null
