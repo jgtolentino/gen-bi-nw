@@ -1,9 +1,11 @@
 'use client'
 import React from 'react';
 import { useSalesByCategory } from '../../src/hooks/useNorthwindData';
+import { useDashboardFilters } from '../../src/store/useDashboardFilters';
 
 export const SalesSplitChart: React.FC = () => {
   const { data, loading, error } = useSalesByCategory();
+  const { selectedCategory, setCategory } = useDashboardFilters();
 
   if (loading) {
     return <div className="flex items-center justify-center h-48">Loading...</div>;
@@ -49,7 +51,16 @@ export const SalesSplitChart: React.FC = () => {
           fill={colors[index % colors.length]}
           stroke="white"
           strokeWidth="2"
-          className="hover:opacity-80 transition-opacity cursor-pointer"
+          className={`hover:opacity-80 transition-all cursor-pointer ${
+            selectedCategory === item.category_name ? 'opacity-100 scale-105' : ''
+          }`}
+          onClick={() => {
+            if (selectedCategory === item.category_name) {
+              setCategory(null); // Clear filter if clicking the same category
+            } else {
+              setCategory(item.category_name);
+            }
+          }}
         />
       </g>
     ));
@@ -76,13 +87,33 @@ export const SalesSplitChart: React.FC = () => {
       {/* Legend */}
       <div className="space-y-2 ml-6">
         {data.map((item, index) => (
-          <div key={item.category_name} className="flex items-center justify-between">
+          <div 
+            key={item.category_name} 
+            className={`flex items-center justify-between cursor-pointer p-2 rounded transition-all ${
+              selectedCategory === item.category_name 
+                ? 'bg-blue-50 border-l-4 border-blue-500' 
+                : 'hover:bg-gray-50'
+            }`}
+            onClick={() => {
+              if (selectedCategory === item.category_name) {
+                setCategory(null);
+              } else {
+                setCategory(item.category_name);
+              }
+            }}
+          >
             <div className="flex items-center">
               <div
                 className="w-4 h-4 rounded mr-2"
                 style={{ backgroundColor: colors[index % colors.length] }}
               />
-              <span className="text-sm text-gray-700">{item.category_name}</span>
+              <span className={`text-sm ${
+                selectedCategory === item.category_name 
+                  ? 'text-blue-700 font-medium' 
+                  : 'text-gray-700'
+              }`}>
+                {item.category_name}
+              </span>
             </div>
             <div className="ml-4 text-right">
               <div className="text-sm font-semibold text-gray-900">

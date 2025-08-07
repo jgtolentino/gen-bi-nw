@@ -9,6 +9,7 @@ import { HighestProfitMarginChart } from '../charts/HighestProfitMarginChart.con
 import { TopClientsChart } from '../charts/TopClientsChart.connected';
 import { TopEmployeesChart } from '../charts/TopEmployeesChart.connected';
 import { OrdersByLocationMap } from '../charts/OrdersByLocationMap.connected';
+import { FilterBar } from '../../src/components/FilterBar';
 import { useKPIs, useMonthlyTrend } from '../../src/hooks/useNorthwindData';
 
 type MetricType = 'Sales' | 'Profit' | 'Orders';
@@ -65,6 +66,9 @@ export const OverviewDashboard: React.FC = () => {
 
   return (
     <div className="space-y-6">
+      {/* Filter Bar */}
+      <FilterBar />
+      
       {/* Header */}
       <div className="bg-white rounded-lg shadow-sm p-6">
         <h2 className="text-2xl font-bold text-gray-800">{currentMonth}</h2>

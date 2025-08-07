@@ -19,8 +19,9 @@ import {
   ProductProfitability,
   CustomerOrders
 } from '../lib/supabase'
+import { useDashboardFilters, useFilterParams } from '../store/useDashboardFilters'
 
-// Hook for fetching all dashboard data
+// Hook for fetching all dashboard data with filter support
 export function useDashboardData() {
   const [kpis, setKpis] = useState<DashboardKPIs | null>(null)
   const [salesByCategory, setSalesByCategory] = useState<SalesByCategory[] | null>(null)
@@ -30,16 +31,19 @@ export function useDashboardData() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
+  const filters = useDashboardFilters()
+  const filterParams = useFilterParams()
+
   useEffect(() => {
     const loadDashboardData = async () => {
       try {
         setLoading(true)
         const [kpisData, salesData, productsData, customersData, trendData] = await Promise.all([
           fetchKPIs(),
-          fetchSalesByCategory(),
-          fetchTopProducts(),
-          fetchTopCustomers(),
-          fetchMonthlyTrend()
+          fetchSalesByCategory(filterParams),
+          fetchTopProducts(5, filterParams),
+          fetchTopCustomers(5, filterParams),
+          fetchMonthlyTrend(filterParams)
         ])
 
         setKpis(kpisData)
@@ -55,7 +59,7 @@ export function useDashboardData() {
     }
 
     loadDashboardData()
-  }, [])
+  }, [filters.selectedCategory, filters.selectedClient, filters.selectedProduct, filters.selectedEmployee, filters.selectedCountry, filters.dateRange.start, filters.dateRange.end])
 
   return {
     kpis,
