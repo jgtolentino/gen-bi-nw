@@ -111,7 +111,7 @@ export const TopEmployeesChart: React.FC = () => {
             </div>
             <div className="flex justify-between text-xs text-gray-500 mt-1">
               <span>{employee.orders} orders</span>
-              <span>${(employee.revenue / employee.orders).toFixed(0)} avg/order</span>
+              <span>${employee.orders > 0 ? (employee.revenue / employee.orders).toFixed(0) : '0'} avg/order</span>
             </div>
           </div>
         </div>

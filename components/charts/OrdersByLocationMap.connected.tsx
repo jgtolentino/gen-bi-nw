@@ -14,7 +14,7 @@ export const OrdersByLocationMap: React.FC = () => {
   }
 
   const topCountries = data.slice(0, 5);
-  const maxRevenue = Math.max(...topCountries.map(d => d.total_revenue));
+  const maxRevenue = topCountries.length > 0 ? Math.max(...topCountries.map(d => d.total_revenue || 0)) : 0;
 
   // Country positions on simplified map
   const countryPositions: Record<string, { top: string; left: string }> = {

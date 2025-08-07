@@ -14,7 +14,7 @@ export const TopEmployeesChart: React.FC = () => {
   }
 
   const topEmployees = data.slice(0, 5);
-  const maxRevenue = Math.max(...topEmployees.map(d => d.total_revenue));
+  const maxRevenue = topEmployees.length > 0 ? Math.max(...topEmployees.map(d => d.total_revenue || 0)) : 0;
 
   // Calculate performance vs target (mock target calculation)
   const getPerformance = (revenue: number) => {

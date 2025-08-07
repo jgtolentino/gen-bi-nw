@@ -13,7 +13,7 @@ export const ProfitByCategoryChart: React.FC = () => {
     return <div className="flex items-center justify-center h-48 text-red-500">Failed to load data</div>;
   }
 
-  const maxProfit = Math.max(...data.map(d => d.total_profit));
+  const maxProfit = data.length > 0 ? Math.max(...data.map(d => d.total_profit || 0)) : 0;
 
   return (
     <div className="space-y-3">

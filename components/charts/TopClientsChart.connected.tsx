@@ -13,7 +13,7 @@ export const TopClientsChart: React.FC = () => {
     return <div className="flex items-center justify-center h-48 text-red-500">Failed to load data</div>;
   }
 
-  const maxRevenue = Math.max(...data.map(d => d.total_revenue));
+  const maxRevenue = data.length > 0 ? Math.max(...data.map(d => d.total_revenue || 0)) : 0;
 
   // Mock trend data - in real app, compare with previous period
   const getTrend = (index: number): 'up' | 'down' | 'stable' => {

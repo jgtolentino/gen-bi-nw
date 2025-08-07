@@ -226,10 +226,10 @@ export const OrdersTable: React.FC = () => {
                   {order.quantity}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
-                  ${order.revenue.toFixed(2)}
+                  ${(order.revenue ?? 0).toFixed(2)}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  ${order.profit.toFixed(2)}
+                  ${(order.profit ?? 0).toFixed(2)}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm">
                   <div className="flex items-center">
@@ -237,7 +237,7 @@ export const OrdersTable: React.FC = () => {
                       order.profitMargin >= 35 ? 'text-green-600' : 
                       order.profitMargin >= 25 ? 'text-blue-600' : 'text-gray-600'
                     }`}>
-                      {order.profitMargin.toFixed(1)}%
+                      {(order.profitMargin ?? 0).toFixed(1)}%
                     </span>
                     <div className="ml-2 w-16 bg-gray-200 rounded-full h-2">
                       <div 
@@ -251,7 +251,7 @@ export const OrdersTable: React.FC = () => {
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {new Date(order.orderDate).toLocaleDateString()}
+                  {order.orderDate ? new Date(order.orderDate).toLocaleDateString() : '-'}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   <div className="flex items-center">
