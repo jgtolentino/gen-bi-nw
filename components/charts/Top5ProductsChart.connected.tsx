@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import { useTopProducts } from '../../src/hooks/useNorthwindData';
 

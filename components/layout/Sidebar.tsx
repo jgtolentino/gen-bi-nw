@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react';
 import { DashboardView } from '../NorthwindDashboard';
 import { ChartBarIcon, TableCellsIcon, CircleStackIcon } from '@heroicons/react/24/outline';

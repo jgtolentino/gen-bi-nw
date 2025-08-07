@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import { useSalesByCategory } from '../../src/hooks/useNorthwindData';
 

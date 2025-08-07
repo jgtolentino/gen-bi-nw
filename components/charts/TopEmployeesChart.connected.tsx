@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import { useEmployeePerformance } from '../../src/hooks/useNorthwindData';
 

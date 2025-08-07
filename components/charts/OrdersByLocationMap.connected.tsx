@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import { useOrdersByCountry } from '../../src/hooks/useNorthwindData';
 

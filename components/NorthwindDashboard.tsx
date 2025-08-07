@@ -1,5 +1,7 @@
+'use client'
+
 import React, { useState } from 'react';
-import { OverviewDashboard } from './dashboards/OverviewDashboard';
+import { OverviewDashboard } from './dashboards/OverviewDashboard.connected';
 import { OrderDetailsDashboard } from './dashboards/OrderDetailsDashboard';
 import { SQLDataPrepDashboard } from './dashboards/SQLDataPrepDashboard';
 import { DashboardLayout } from './layout/DashboardLayout';

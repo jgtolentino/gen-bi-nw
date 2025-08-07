@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from 'react';
 import { MetricCard } from '../charts/MetricCard';
 import { SalesSplitChart } from '../charts/SalesSplitChart.connected';
