@@ -49,7 +49,7 @@ GRANT SELECT ON public.order_details_table TO anon;
 GRANT SELECT ON ALL TABLES IN SCHEMA public TO authenticated;
 
 -- 5. Verify permissions
-DO $$
+DO $
 DECLARE
     v_count INTEGER;
 BEGIN
@@ -63,7 +63,7 @@ BEGIN
     
     EXECUTE 'SELECT COUNT(*) FROM public.nw_top_products' INTO v_count;
     RAISE NOTICE 'Top products view accessible: % records', v_count;
-END $$;
+END $;
 
 -- Production-ready RLS policies (commented out for now)
 -- Uncomment and customize these before going to production:
