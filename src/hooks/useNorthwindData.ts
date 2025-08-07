@@ -134,14 +134,17 @@ export function useTopCustomers(limit = 5) {
 
 // Hook for Monthly Revenue Trend
 export function useMonthlyTrend() {
-  const [data, setData] = useState<MonthlyRevenueTrend[] | null>(null)
+  const [data, setData] = useState<MonthlyRevenueTrend[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     fetchMonthlyTrend()
-      .then(setData)
-      .catch(err => setError(err.message))
+      .then(result => setData(result || []))
+      .catch(err => {
+        setError(err.message)
+        setData([]) // Ensure we always have an array
+      })
       .finally(() => setLoading(false))
   }, [])
 

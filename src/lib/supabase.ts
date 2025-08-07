@@ -148,13 +148,23 @@ export async function fetchTopCustomers(limit = 5) {
 }
 
 export async function fetchMonthlyTrend() {
-  const { data, error } = await supabase
-    .from('nw_monthly_revenue_trend')
-    .select('*')
-    .order('order_month', { ascending: true })
-  
-  if (error) console.error('Error fetching monthly trend:', error)
-  return data as MonthlyRevenueTrend[] | null
+  try {
+    const { data, error } = await supabase
+      .from('nw_monthly_revenue_trend')
+      .select('*')
+      .order('order_month', { ascending: true })
+    
+    if (error) {
+      console.error('Error fetching monthly trend:', error)
+      return null
+    }
+    
+    // Return data with defensive checks
+    return (data || []) as MonthlyRevenueTrend[]
+  } catch (err) {
+    console.error('Unexpected error fetching monthly trend:', err)
+    return []
+  }
 }
 
 export async function fetchOrdersByCountry() {

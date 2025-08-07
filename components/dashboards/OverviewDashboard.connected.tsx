@@ -22,8 +22,8 @@ export const OverviewDashboard: React.FC = () => {
 
   // Generate sparkline data from monthly trend
   const getSparklineData = () => {
-    if (!monthlyTrend) return Array(10).fill(0);
-    return monthlyTrend.slice(-10).map(month => month.monthly_revenue);
+    if (!monthlyTrend || monthlyTrend.length === 0) return Array(10).fill(0);
+    return monthlyTrend.slice(-10).map(month => month.monthly_revenue || 0);
   };
 
   const getMonthlyChange = (current: number, previous: number) => {
@@ -48,19 +48,19 @@ export const OverviewDashboard: React.FC = () => {
   }
 
   // Calculate month-over-month changes
-  const currentMonthData = monthlyTrend?.[monthlyTrend.length - 1];
-  const previousMonthData = monthlyTrend?.[monthlyTrend.length - 2];
+  const currentMonthData = monthlyTrend && monthlyTrend.length > 0 ? monthlyTrend[monthlyTrend.length - 1] : null;
+  const previousMonthData = monthlyTrend && monthlyTrend.length > 1 ? monthlyTrend[monthlyTrend.length - 2] : null;
 
   const revenueChange = currentMonthData && previousMonthData 
-    ? getMonthlyChange(currentMonthData.monthly_revenue, previousMonthData.monthly_revenue)
+    ? getMonthlyChange(currentMonthData.monthly_revenue || 0, previousMonthData.monthly_revenue || 0)
     : 0;
 
   const profitChange = currentMonthData && previousMonthData
-    ? getMonthlyChange(currentMonthData.monthly_profit, previousMonthData.monthly_profit)
+    ? getMonthlyChange(currentMonthData.monthly_profit || 0, previousMonthData.monthly_profit || 0)
     : 0;
 
   const ordersChange = currentMonthData && previousMonthData
-    ? getMonthlyChange(currentMonthData.order_count, previousMonthData.order_count)
+    ? getMonthlyChange(currentMonthData.order_count || 0, previousMonthData.order_count || 0)
     : 0;
 
   return (
@@ -102,14 +102,14 @@ export const OverviewDashboard: React.FC = () => {
           title="Profit"
           value={`$${kpis.total_profit.toLocaleString('en-US', { maximumFractionDigits: 0 })}`}
           change={profitChange}
-          sparklineData={monthlyTrend?.slice(-10).map(m => m.monthly_profit) || []}
+          sparklineData={monthlyTrend && monthlyTrend.length > 0 ? monthlyTrend.slice(-10).map(m => m.monthly_profit || 0) : Array(10).fill(0)}
           color="#1c3d5a"
         />
         <MetricCard
           title="Orders"
           value={kpis.total_orders.toLocaleString()}
           change={ordersChange}
-          sparklineData={monthlyTrend?.slice(-10).map(m => m.order_count) || []}
+          sparklineData={monthlyTrend && monthlyTrend.length > 0 ? monthlyTrend.slice(-10).map(m => m.order_count || 0) : Array(10).fill(0)}
           color="#796d5f"
         />
         <MetricCard
